@@ -1,0 +1,60 @@
+# Fetch the vendor with the builder platform to avoid QEMU issues
+FROM --platform=$BUILDPLATFORM docker.io/library/alpine:3.17
+
+# Install:
+# - Azure Pipelines agent system requirements
+# - Azure CLI system requirements (Python 3.10, plus C/Rust build tools for libs non pre-built on this platform)
+# - ASP.NET Core runtime
+# - "make, tar, unzip, gzip, zip, zsh, zstd" for developer ease-of-life
+RUN apk update \
+    && apk add \
+        aspnetcore6-runtime \
+        bash \
+        build-base \
+        ca-certificates \
+        cargo \
+        curl \
+        gcompat \
+        git \
+        gzip \
+        icu \
+        icu-libs \
+        iputils \
+        jq \
+        libffi-dev \
+        linux-headers \
+        lsb-release \
+        openssl-dev \
+        py3-pip \
+        python3-dev~=3.10 \
+        python3~=3.10 \
+        shadow \
+        sudo \
+        tar \
+        unzip \
+        zip \
+        zsh \
+        zstd \
+    && rm -rf /var/cache/apk
+
+# Install Azure CLI, then verify installation
+RUN python3 -m pip install --upgrade pip setuptools wheel \
+    && python3 -m pip install azure-cli \
+    && rm -rf $HOME/.cache/pip \
+    && az --version
+
+WORKDIR /azp
+
+# Install Azure Pipelines Agent sources, then verify installation
+ARG AGENT_VERSION
+ENV AGENT_VERSION ${AGENT_VERSION}
+COPY init.sh .
+RUN chmod +x init.sh \
+    && ./init.sh $AGENT_VERSION
+    # && AGENT_ALLOW_RUNASROOT="1" ./run-docker.sh --version
+
+# Install Azure Pipelines Agent startup script
+COPY start.sh .
+RUN chmod +x start.sh
+
+CMD ["./start.sh"]

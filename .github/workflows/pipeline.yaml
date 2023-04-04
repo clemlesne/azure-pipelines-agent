@@ -114,6 +114,8 @@ jobs:
             arch: linux/amd64,linux/arm/v7,linux/arm64/v8
           - os: ubi8
             arch: linux/amd64,linux/arm64/v8
+          - os: alpine
+            arch: linux/amd64,linux/arm/v7,linux/arm64/v8
     steps:
       - name: checkout
         uses: actions/checkout@v3

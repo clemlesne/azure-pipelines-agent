@@ -24,7 +24,7 @@ Features:
 - Compatible with Debian, Ubuntu and Red Hat LTS releases.
 - SBOM (Software Bill of Materials) is packaged with each container image.
 - System updates are applied every days.
-- Systems are based on [Microsoft official .NET images](https://mcr.microsoft.com/en-us/product/dotnet/aspnet/about) and [Red Hat Universal Base Image](https://catalog.redhat.com/software/containers/ubi8/ubi-minimal/5c359a62bed8bd75a2c3fba8).
+- Systems are based on [Microsoft official .NET images](https://mcr.microsoft.com/en-us/product/dotnet/aspnet/about), [Red Hat Universal Base Image](https://catalog.redhat.com/software/containers/ubi8/ubi-minimal/5c359a62bed8bd75a2c3fba8), and [Alpine Linux](https://github.com/alpinelinux/docker-alpine).
 
 ## Usage
 
@@ -51,6 +51,7 @@ helm upgrade --install agent clemlesne-azure-pipelines-agent/azure-pipelines-age
 
 | Ref | OS | Arch | Support |
 |-|-|-|-|
+| `docker pull ghcr.io/clemlesne/azure-pipelines-agent:alpine-main` | Alpine Linux (3.17) | `linux/amd64`, `linux/arm/v7`, `linux/arm64/v8` | [See Alpine Linux releases.](https://www.alpinelinux.org/releases) |
 | `docker pull ghcr.io/clemlesne/azure-pipelines-agent:bullseye-main` | Debian Bullseye (11) slim | `linux/amd64`, `linux/arm/v7`, `linux/arm64/v8` | [See Debian LTS wiki.](https://wiki.debian.org/LTS) |
 | `docker pull ghcr.io/clemlesne/azure-pipelines-agent:focal-main` | Ubuntu Focal (20.04) minimal | `linux/amd64`, `linux/arm/v7`, `linux/arm64/v8` | [See Ubuntu LTS wiki.](https://wiki.ubuntu.com/Releases) |
 | `docker pull ghcr.io/clemlesne/azure-pipelines-agent:jammy-main` | Ubuntu Jammy (22.04) minimal | `linux/amd64`, `linux/arm/v7`, `linux/arm64/v8` | [See Ubuntu LTS wiki.](https://wiki.ubuntu.com/Releases) |
