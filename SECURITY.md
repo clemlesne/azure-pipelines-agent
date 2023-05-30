@@ -21,6 +21,21 @@ Scanned systems:
 
 If you think you have found a vulnerability, please do not open an issue on GitHub. Instead, please send an email to [Clémence Lesné](mailto:clemence@lesne.pro).
 
+## Proactive detection of third-party licence issues
+
+At each build, a licence scan is performed on the system. Licence issue is reported in [FOSSA](https://fossa.com). The maintainers are alterted. Public have access to reports through FOSSA.
+
+Scanned systems:
+
+| `Ref` | Licence scans with FOSSA |
+|-|-|
+| `ghcr.io/clemlesne/azure-pipelines-agent:bullseye-main` | ✅ |
+| `ghcr.io/clemlesne/azure-pipelines-agent:focal-main` | ✅ |
+| `ghcr.io/clemlesne/azure-pipelines-agent:jammy-main` | ✅ |
+| `ghcr.io/clemlesne/azure-pipelines-agent:ubi8-main` | ✅ |
+| `ghcr.io/clemlesne/azure-pipelines-agent:win-ltsc2019-main` | ✅ |
+| `ghcr.io/clemlesne/azure-pipelines-agent:win-ltsc2022-main` | ✅ |
+
 ## Chain of trust
 
 The Helm chart is signed with a GPG key. [The public key is available on Keybase at the following address.](https://keybase.io/clemlesne/pgp_keys.asc)
