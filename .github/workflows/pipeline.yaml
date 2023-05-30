@@ -297,7 +297,8 @@ jobs:
       - name: Check if pre-release
         id: prerelease
         run: |
-          if [ "${{ github.ref_name }}" == "${{ github.event.repository.default_branch }}" ]; then
+          branch=$(echo "${{ github.ref }}" | sed 's/refs\/heads\///g')
+          if [ "$branch" == "${{ github.event.repository.default_branch }}" ]; then
             echo "prerelease=false" >> $GITHUB_OUTPUT
           else
             echo "prerelease=true" >> $GITHUB_OUTPUT
@@ -332,7 +333,7 @@ jobs:
       - name: Store tag
         id: tag
         run: |
-          branch=$(echo "${{ github.ref_name }}" | sed 's/\//-/g')
+          branch=$(echo "${{ github.ref }}" | sed 's/refs\/heads\///g' | sed 's/\//-/g')
           tag=$(echo "${{ steps.meta.outputs.tags }}" | grep $branch)
           echo "tag=$tag" >> $GITHUB_OUTPUT
 
@@ -444,7 +445,8 @@ jobs:
       - name: Check if pre-release
         id: prerelease
         run: |
-          if ('${{ github.ref_name }}' -eq '${{ github.event.repository.default_branch }}') {
+          $branch = '${{ github.ref }}'.Replace('^refs/heads/', '')
+          if ($branch -eq '${{ github.event.repository.default_branch }}') {
             echo "prerelease=false" >> $env:GITHUB_OUTPUT
           } else {
             echo "prerelease=true" >> $env:GITHUB_OUTPUT
@@ -479,7 +481,7 @@ jobs:
       - name: Store tag
         id: tag
         run: |
-          $branch = "${{ github.ref_name }}".Replace("/", "-")
+          $branch = '${{ github.ref }}'.Replace('^refs/heads/', '').Replace('/', '-')
           $tag = ('${{ steps.meta.outputs.tags }}').Split([Environment]::NewLine) | Where-Object { $_ -like "*$branch*" } | Select-Object -First 1
           echo "tag=$tag" >> $Env:GITHUB_OUTPUT
 
