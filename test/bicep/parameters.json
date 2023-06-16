@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "prefix": {
+      "value": "azure-pipelines-clesne"
+    },
+    "location": {
+      "value": "westeurope"
+    },
+    "imageVersion": {
+      "value": "develop"
+    },
+    "pipelinesCapabilities": {
+      "value": ["arch_x64"]
+    },
+    "pipelinesPoolName": {
+      "value": "onprem_aca"
+    },
+    "pipelinesOrganizationURL": {
+      "value": "https://dev.azure.com/shopping-cart-devops-demo"
+    },
+    "pipelinesPersonalAccessToken": {
+      "value": "g6vgo2vwa52lw6xfbqww2yzf5d2e6bmvvbjfvmurkoluut73ehoq"
+    }
+  }
+}
