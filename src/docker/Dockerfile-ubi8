@@ -186,15 +186,14 @@ ENV PYTHONDONTWRITEBYTECODE=
 
 # Configure startup
 COPY uid_entrypoint.sh /
-RUN chmod a=rx /uid_entrypoint.sh \
+RUN chmod a+rx /uid_entrypoint.sh \
     && chmod a+w /etc/passwd /etc/shadow
 ENTRYPOINT ["/tini", "--", "/uid_entrypoint.sh"]
 
 # Configure local user
 ENV USER app-user
 RUN mkdir -p ${HOME}/.local/tmp ${HOME}/.local/share/buildkit \
-    && echo ${USER}:100000:65536 | tee /etc/subuid | tee /etc/subgid \
-    && echo "${USER} ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers
+    && echo ${USER}:100000:65536 | tee /etc/subuid | tee /etc/subgid
 ENV TMPDIR=${HOME}/.local/tmp
 
 # Install Azure Pipelines Agent startup script

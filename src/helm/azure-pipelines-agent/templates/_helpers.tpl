@@ -101,6 +101,8 @@ windowsOptions:
   runAsUserName: ContainerAdministrator
 {{- else }}
 allowPrivilegeEscalation: false
+# Standard user for Red Hat OpenShift
+runAsUser: 1000920000
 capabilities:
   drop: ["ALL"]
 {{- end }}
