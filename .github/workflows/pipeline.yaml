@@ -207,6 +207,9 @@ jobs:
         env:
           CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  deploy-test:
+    uses: ./.github/workflows/deploy.yaml
+
   test:
     name: Test
     runs-on: ubuntu-22.04
