@@ -1,0 +1,32 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "pipelinesOrganizationURL": {
+      "value": "ENC[AES256_GCM,data:5K6J8hXFD3AVOfQfKFXWMQkudiDu2ZRTJYHAk+KtF3aK0y3nf9BXPSPfjw==,iv:OGwTbFwri6YjyOAFUIUysgZm69RePeTqgT98rk+iV/o=,tag:CGah7wO44p8nAb8aCR74dQ==,type:str]"
+    },
+    "pipelinesPersonalAccessToken": {
+      "value": "ENC[AES256_GCM,data:oPf36IRBy4czuvMwvcVuvixjvm4onya3kEzWDV2iIkA9fN3lHDbwZ8Svo7bM/Pob169R5A==,iv:pTcMPBXg+O8ABknTnbC15eN/z/h6KoKcDaoXRta5qd8=,tag:id3QSS2paFE5DyfZsQAxtA==,type:str]"
+    },
+    "pipelinesPoolName": {
+      "value": "ENC[AES256_GCM,data:7m8j9lsHP8xW8cQ3xBc=,iv:miZI4cKiz0t1BYH+uyhuGW926AMeEKEoyxOoQyctutU=,tag:wv5aNZ9/ZI4TuwfThXwM/Q==,type:str]"
+    }
+  },
+  "sops": {
+    "kms": null,
+    "gcp_kms": null,
+    "azure_kv": null,
+    "hc_vault": null,
+    "age": [
+      {
+        "recipient": "age1up54yhdjs672usk4etmy8naa5uh0qamy5tn3nmkwua5vp6fn7v7qz80945",
+        "enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2Tnl1QWp6SWZFTkdtTkVv\ncG5pVVdJZnpNanZtOE9lZ2RpSXFXdGQzZUUwClVkejc3cWlGVk9HRTJPSXJMbjVx\nZDQwSXRDTlJneXQ1T1BsNFFuUlFvWDgKLS0tIFRleS9yd2JXblFlV2VhQ1lXRjZP\nQlF5MHlXTEJoWWZsaDRLRXZ4N0pUOW8KQraADNqYDYTtnSxMfqQ3FWqVOueiOlIo\nkzyTQgQhgd9c7og0aN7eaoDhbvZzdu4NFuY4zVUWLaNJLxhUFkyU1w==\n-----END AGE ENCRYPTED FILE-----\n"
+      }
+    ],
+    "lastmodified": "2023-12-26T13:13:28Z",
+    "mac": "ENC[AES256_GCM,data:Sc4JwGLGJShjPsiwcaaZM0n6oW2kNd3nvf22fsNnp0gdkUVsGTbkNYDShiqkxI04MnDsfgyTHaulOGNFslgpol+3+2K81g/hFp+lX3QL+n8RnDdPXLxjdriOhzeU2mysjJS2bJ9DDVbEdB5VX16WzepwFR4EzO579rkwnp1j+34=,iv:vsvCc6XtmzqOLDEKZkyNjtMnaaksKsf5fKgfNl3q94U=,tag:0MvDyNT8eNMY6TYjptbCmg==,type:str]",
+    "pgp": null,
+    "encrypted_regex": "value",
+    "version": "3.8.1"
+  }
+}

@@ -2,10 +2,7 @@
 
 flavor ?= null
 instance ?= $(shell hostname | tr '[:upper:]' '[:lower:]')
-version ?= $(shell $(MAKE) --silent version)
-
-version:
-	@bash ./cicd/version/version.sh -g . -c
+version ?= null
 
 test:
 	@echo "➡️ Running Prettier..."
@@ -63,11 +60,14 @@ destroy-bicep:
 		--name "apa-$(instance)-$(flavor)" \
 		--yes
 
+integration:
+	@bash test/integration.sh $(instance) $(flavor)
+
 docs:
 	cd docs && hugo server
 
 build-docker:
-	bash cicd/docker-build-local.sh
+	@bash cicd/docker-build-local.sh
 
 build-docs:
 	cd docs && hugo --gc --minify

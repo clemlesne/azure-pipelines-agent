@@ -824,3 +824,69 @@ jobs:
             git commit -m "Deploy Hugo site v${{ needs.init.outputs.VERSION }}"
             git push origin gh-pages
           fi
+
+  integration-test:
+    name: Integration test (Linux ${{ matrix.os }})
+    runs-on: ubuntu-22.04
+    needs:
+      - init
+      - sast-creds
+      - sast-semgrep
+      - static-test
+      - build-release-linux
+      - build-release-win
+    concurrency: integration-test-${{ needs.init.outputs.BRANCH }}-${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      # Rate limiting on Azure DevOps SaaS APIs is triggered quickluy by integration tests, so we need to limit the number of parallel jobs
+      max-parallel: 3
+      matrix:
+        os: [bookworm, bullseye, focal, jammy, ubi8, ubi9]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Setup SOPS
+        run: |
+          curl -LO https://github.com/getsops/sops/releases/download/v${{ env.SOPS_VERSION }}/sops-v${{ env.SOPS_VERSION }}.linux.amd64
+          mv sops-v${{ env.SOPS_VERSION }}.linux.amd64 /usr/local/bin/sops
+          chmod +x /usr/local/bin/sops
+
+      - name: Setup AGE key
+        run: |
+          age_folder="$XDG_CONFIG_HOME/sops/age"
+          mkdir -p ${age_folder}
+          echo "${{ secrets.AGE_KEY }}" > ${age_folder}/keys.txt
+
+      - name: Login to Azure
+        uses: azure/login@v1.5.1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy Bicep
+        run: |
+          make deploy-bicep \
+            flavor="${{ matrix.os }}" \
+            instance="${{ needs.init.outputs.BRANCH }}" \
+            version="sha-$(git rev-parse --short HEAD)"
+
+      - name: Integration
+        env:
+          # Permissions: Agent Pools (Read); Build (Read & execute); Pipeline Resources (Use & manage); Project and Team (Read, write, & manage); Service Connections (Read, query, & manage)
+          AZURE_DEVOPS_EXT_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+          # Scope: clemlesne/azure-pipelines-agent
+          # Permissions: Contents (read-only); Metadata (read-only); Webhooks (read & write)
+          AZURE_DEVOPS_EXT_GITHUB_PAT: ${{ secrets.AZURE_DEVOPS_GITHUB_PAT }}
+        # Script wait indefinitely for external events, so we need to timeout
+        timeout-minutes: 30
+        run: |
+          make integration \
+            flavor="${{ matrix.os }}" \
+            instance="${{ needs.init.outputs.BRANCH }}"
+
+      # - name: Cleanup
+      #   if: always()
+      #   run: |
+      #     make destroy-bicep \
+      #       flavor="${{ matrix.os }}" \
+      #       instance="${{ needs.init.outputs.BRANCH }}"
