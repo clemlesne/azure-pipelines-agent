@@ -157,14 +157,10 @@ containers:
               # For security reasons, force clean the pipeline workspace at restart -- Sharing data bewteen pipelines is a security risk
               Remove-Item -Recurse -Force $Env:AZP_WORK;
               {{- end }}
-            {{- else }}
+            {{- else not .Values.pipelines.cache.volumeEnabled or not .Values.pipelines.tmpdir.volumeEnabled}}
             - bash
             - -c
             - |
-              bash config.sh \
-                remove \
-                --auth PAT \
-                --token ${AZP_TOKEN};
               {{- if not .Values.pipelines.cache.volumeEnabled }}
               # For security reasons, force clean the pipeline workspace at restart -- Sharing data bewteen pipelines is a security risk
               rm -rf ${AZP_WORK};
