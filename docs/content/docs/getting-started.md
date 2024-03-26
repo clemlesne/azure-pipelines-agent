@@ -43,7 +43,7 @@ The deployment will manage the following resources, in a dedicated resource grou
 
 ### Prepare the Helm values
 
-Minimal configuration:
+Minimal configuration is required:
 
 ```yaml
 # values.yaml
