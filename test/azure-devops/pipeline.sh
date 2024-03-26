@@ -1,3 +1,9 @@
+###
+# Run a local pipeline file in Azure DevOps, setup the environment, wait for completion and return the result.
+#
+# Usage: ./pipeline.sh <prefix> <pipeline> <flavor>
+###
+
 #!/bin/bash
 set -e
 

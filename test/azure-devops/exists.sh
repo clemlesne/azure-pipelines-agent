@@ -1,3 +1,9 @@
+###
+# Test the existence of an Azure DevOps agent in a pool.
+#
+# Usage: ./exists.sh <prefix>
+###
+
 #!/bin/bash
 set -e
 

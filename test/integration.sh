@@ -1,3 +1,9 @@
+###
+# Test the existence of an Azure DevOps agent in a pool, then run a pipeline and confirm it was successful.
+#
+# Usage: ./integration.sh <instance> <flavor>
+###
+
 #!/bin/bash
 set -e
 
