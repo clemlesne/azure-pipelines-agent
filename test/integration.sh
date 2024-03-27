@@ -22,4 +22,7 @@ az devops configure --defaults organization=${org_url}
 
 bash test/azure-devops/exists.sh "apa-${instance}-${flavor}"
 
-bash test/azure-devops/pipeline.sh ${instance} root ${flavor}
+for test in $(basename -s .yaml test/pipeline/*.yaml)
+do
+  bash test/azure-devops/pipeline.sh ${instance} ${test} ${flavor}
+done
