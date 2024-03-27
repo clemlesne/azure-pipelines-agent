@@ -1,3 +1,5 @@
+name: Root support
+
 parameters:
   - name: flavor
     type: string
