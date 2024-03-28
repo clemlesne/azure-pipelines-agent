@@ -13,6 +13,34 @@ weight: 1
 
 Create [a new agent pool](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/pools-queues) in Azure DevOps. Then, create [the personal access token](https://learn.microsoft.com/en-us/azure/devops/pipelines/agents/personal-access-token-agent-registration?view=azure-devops) allowing access from the Agent to Azure DevOps.
 
+### Deploy
+
+Software can either be deployed using Helm on a Kubernetes cluster or Bicep on Azure Container Apps.
+
+{{% /steps %}}
+
+## Deploy on Azure
+
+{{< callout type="info" >}}
+Azure deployment has a limitation regarding the demands and the OS:
+
+- OS are limited to Linux, such as Debian, as Azure Containers Apps does not support Windows.
+- The agent will not be able to run jobs requiring a system demand, such as `Agent.OS` or `Agent.OSArchitecture`. However, user-defined demands from the `pipelinesCapabilities` parameter are usable.
+
+{{< /callout >}}
+
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fclemlesne%2Fazure-pipelines-agent%2Fmain%2Fsrc%2Fbicep%2Fmain.bicep)
+
+The deployment will manage the following resources, in a dedicated resource group:
+
+- Container Apps environment
+- Container Apps job
+- Log Analytics workspace
+
+## Deploy on Kubernetes
+
+{{% steps %}}
+
 ### Prepare the Helm values
 
 Minimal configuration:

@@ -68,6 +68,8 @@ env:
   VS_BUILDTOOLS_WIN_VERSION: 17
   # https://github.com/gohugoio/hugo/releases
   HUGO_VERSION: 0.123.7
+  # See: https://github.com/getsops/sops/releases
+  SOPS_VERSION: 3.8.1
 
 jobs:
   init:
@@ -267,6 +269,11 @@ jobs:
           sudo curl -LsSf --retry 8 --retry-all-errors https://github.com/hadolint/hadolint/releases/download/v${{ env.HADOLINT_VERSION }}/hadolint-Linux-x86_64 -o /usr/bin/hadolint
           sudo chmod +x /usr/bin/hadolint
           hadolint --version
+
+      - name: Login to Azure
+        uses: azure/login@v1.5.1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Run tests
         run: |
